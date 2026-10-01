@@ -54,15 +54,15 @@ public class Main {
                 )
         );
 
+        Order order = shopService.getOrder(1);
+
         System.out.println("\nOrder:");
-        System.out.println(shopService.getOrder(1));
+        System.out.println(order);
 
         System.out.println("\nProducts after order:");
         for (Product product : shopService.getProducts()) {
             System.out.println(product);
         }
-
-        Order order = shopService.getOrder(1);
 
         System.out.println("\nTotal price:");
         System.out.println(order.getTotalPrice());
@@ -74,9 +74,24 @@ public class Main {
         );
 
         System.out.println("\nOrder after quantity change:");
-        System.out.println(shopService.getOrder(1));
+        System.out.println(order);
 
         System.out.println("\nNew total price:");
         System.out.println(order.getTotalPrice());
+
+        System.out.println("\nStock after quantity change:");
+        System.out.println(product2);
+
+        // Wareneingang
+        shopService.receiveGoods(1, 5);
+
+        System.out.println("\nStock after receiving 5 laptops:");
+        System.out.println(product1);
+
+        // Warenausgang
+        shopService.removeGoods(1, 3);
+
+        System.out.println("\nStock after removing 3 laptops:");
+        System.out.println(product1);
     }
 }

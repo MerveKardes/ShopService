@@ -217,4 +217,27 @@ class ShopServiceTest {
         assertThat(product.getStock())
                 .isEqualTo(7);
     }
+
+    @Test
+    void removeGoods_shouldNotReduceStock_whenStockIsNotEnough() {
+
+        ProductRepo productRepo = new ProductRepo();
+
+        Product product = new Product(
+                1,
+                "Laptop",
+                new BigDecimal("999.99"),
+                10
+        );
+
+        productRepo.addProduct(product);
+
+        OrderRepo orderRepo = new OrderListRepo();
+        ShopService shopService = new ShopService(productRepo, orderRepo);
+
+        shopService.removeGoods(1, 15);
+
+        assertThat(product.getStock())
+                .isEqualTo(10);
+    }
 }
