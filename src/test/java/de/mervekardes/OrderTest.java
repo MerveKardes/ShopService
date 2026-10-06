@@ -31,7 +31,8 @@ class OrderTest {
 
         Order order = new Order(
                 1,
-                List.of(laptopItem, mouseItem)
+                List.of(laptopItem, mouseItem),
+                OrderStatus.PROCESSING
         );
 
         assertThat(order.getTotalPrice())

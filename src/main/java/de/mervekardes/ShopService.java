@@ -63,7 +63,7 @@ public class ShopService {
             item.getProduct().reduceStock(item.getQuantity());
         }
 
-        Order order = new Order(orderId, items);
+        Order order = new Order(orderId, items,OrderStatus.PROCESSING);
         orderRepo.add(order);
     }
 
