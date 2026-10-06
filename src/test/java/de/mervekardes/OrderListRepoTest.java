@@ -22,7 +22,7 @@ class OrderListRepoTest {
         );
 
         OrderItem item = new OrderItem(product, 2);
-        Order order = new Order(1, List.of(item));
+        Order order = new Order(1, List.of(item),OrderStatus.PROCESSING);
 
         orderRepo.add(order);
 
@@ -43,7 +43,7 @@ class OrderListRepoTest {
         );
 
         OrderItem item = new OrderItem(product, 2);
-        Order order = new Order(1, List.of(item));
+        Order order = new Order(1, List.of(item),OrderStatus.PROCESSING);
 
         orderRepo.add(order);
 
@@ -77,7 +77,7 @@ class OrderListRepoTest {
         );
 
         OrderItem item = new OrderItem(product, 2);
-        Order order = new Order(1, List.of(item));
+        Order order = new Order(1, List.of(item),OrderStatus.PROCESSING);
 
         orderRepo.add(order);
 
