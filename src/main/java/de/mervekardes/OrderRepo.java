@@ -5,9 +5,9 @@ import java.util.List;
 public interface OrderRepo {
     void add(Order order);
 
-    void remove(int id);
+    void remove(String id);
 
-    Order getById(int id);
+    Order getById(String id);
 
     List<Order> getAll();
 }

@@ -3,6 +3,7 @@ package de.mervekardes;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,6 +12,7 @@ class OrderTest {
 
     @Test
     void getTotalPrice_shouldReturnCorrectTotalPrice() {
+        Instant createdAt = Instant.parse("2026-10-06T12:00:00Z");
 
         Product laptop = new Product(
                 1,
@@ -30,9 +32,10 @@ class OrderTest {
         OrderItem mouseItem = new OrderItem(mouse, 3);
 
         Order order = new Order(
-                1,
+                "order-1",
                 List.of(laptopItem, mouseItem),
-                OrderStatus.PROCESSING
+                OrderStatus.PROCESSING,
+                createdAt
         );
 
         assertThat(order.getTotalPrice())

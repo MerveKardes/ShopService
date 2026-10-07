@@ -2,6 +2,7 @@ package de.mervekardes;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.UUID;
 
 public class Main {
 
@@ -35,10 +36,17 @@ public class Main {
         productRepo.addProduct(product3);
 
         OrderRepo orderRepo = new OrderMapRepo();
+        IdService idService = new IdService() {
+            @Override
+            public String generateId() {
+                return UUID.randomUUID().toString();
+            }
+        };
 
         ShopService shopService = new ShopService(
                 productRepo,
-                orderRepo
+                orderRepo,
+                idService
         );
 
         System.out.println("Products before order:");
@@ -46,15 +54,28 @@ public class Main {
             System.out.println(product);
         }
 
-        shopService.addOrder(
-                1,
+        String orderId1 = shopService.addOrder(
                 Map.of(
                         1, 2,
                         2, 3
                 )
         );
 
-        Order order = shopService.getOrder(1);
+        String orderId2 = shopService.addOrder(
+                Map.of(
+                        2, 1,
+                        3, 2
+                )
+        );
+
+        String orderId3 = shopService.addOrder(
+                Map.of(
+                        1, 1,
+                        3, 1
+                )
+        );
+
+        Order order = shopService.getOrder(orderId1);
 
         System.out.println("\nOrder:");
         System.out.println(order);
@@ -68,7 +89,7 @@ public class Main {
         System.out.println(order.getTotalPrice());
 
         shopService.changeQuantity(
-                1,
+                orderId1,
                 2,
                 5
         );

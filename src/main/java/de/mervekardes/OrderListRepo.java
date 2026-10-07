@@ -13,22 +13,17 @@ public class OrderListRepo implements OrderRepo {
     }
 
     @Override
-    public void remove(int id) {
-        Order order = getById(id);
-
-        if (order != null) {
-            orders.remove(order);
-        }
+    public void remove(String id) {
+        orders.removeIf(order -> order.id().equals(id));
     }
 
     @Override
-    public Order getById(int id) {
+    public Order getById(String id) {
         for (Order order : orders) {
-            if (order.id() == id) {
+            if (order.id().equals(id)) {
                 return order;
             }
         }
-
         return null;
     }
 

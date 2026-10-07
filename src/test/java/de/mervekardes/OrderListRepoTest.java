@@ -3,6 +3,7 @@ package de.mervekardes;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,6 +12,8 @@ class OrderListRepoTest {
 
     @Test
     void add_shouldAddOrder() {
+
+        Instant createdAt = Instant.parse("2026-10-06T12:00:00Z");
 
         OrderListRepo orderRepo = new OrderListRepo();
 
@@ -22,7 +25,13 @@ class OrderListRepoTest {
         );
 
         OrderItem item = new OrderItem(product, 2);
-        Order order = new Order(1, List.of(item),OrderStatus.PROCESSING);
+
+        Order order = new Order(
+                "order-1",
+                List.of(item),
+                OrderStatus.PROCESSING,
+                createdAt
+        );
 
         orderRepo.add(order);
 
@@ -33,6 +42,8 @@ class OrderListRepoTest {
     @Test
     void getById_shouldReturnOrder_whenOrderExists() {
 
+        Instant createdAt = Instant.parse("2026-10-06T12:00:00Z");
+
         OrderListRepo orderRepo = new OrderListRepo();
 
         Product product = new Product(
@@ -43,11 +54,17 @@ class OrderListRepoTest {
         );
 
         OrderItem item = new OrderItem(product, 2);
-        Order order = new Order(1, List.of(item),OrderStatus.PROCESSING);
+
+        Order order = new Order(
+                "order-1",
+                List.of(item),
+                OrderStatus.PROCESSING,
+                createdAt
+        );
 
         orderRepo.add(order);
 
-        Order actual = orderRepo.getById(1);
+        Order actual = orderRepo.getById("order-1");
 
         assertThat(actual)
                 .isEqualTo(order);
@@ -58,7 +75,7 @@ class OrderListRepoTest {
 
         OrderListRepo orderRepo = new OrderListRepo();
 
-        Order actual = orderRepo.getById(99);
+        Order actual = orderRepo.getById("order-99");
 
         assertThat(actual)
                 .isNull();
@@ -66,6 +83,8 @@ class OrderListRepoTest {
 
     @Test
     void remove_shouldRemoveOrder_whenOrderExists() {
+
+        Instant createdAt = Instant.parse("2026-10-06T12:00:00Z");
 
         OrderListRepo orderRepo = new OrderListRepo();
 
@@ -77,11 +96,17 @@ class OrderListRepoTest {
         );
 
         OrderItem item = new OrderItem(product, 2);
-        Order order = new Order(1, List.of(item),OrderStatus.PROCESSING);
+
+        Order order = new Order(
+                "order-1",
+                List.of(item),
+                OrderStatus.PROCESSING,
+                createdAt
+        );
 
         orderRepo.add(order);
 
-        orderRepo.remove(1);
+        orderRepo.remove("order-1");
 
         assertThat(orderRepo.getAll())
                 .doesNotContain(order);

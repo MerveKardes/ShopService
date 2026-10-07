@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class OrderMapRepo implements OrderRepo {
 
-    private Map<Integer, Order> orders = new HashMap<>();
+    private Map<String, Order> orders = new HashMap<>();
 
     @Override
     public void add(Order order) {
@@ -15,12 +15,12 @@ public class OrderMapRepo implements OrderRepo {
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(String id) {
         orders.remove(id);
     }
 
     @Override
-    public Order getById(int id) {
+    public Order getById(String id) {
         return orders.get(id);
     }
 

@@ -2,22 +2,23 @@ package de.mervekardes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductRepo {
-    public List<Product> products = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
     public void addProduct(Product product) {
         products.add(product);
     }
 
-    public Product getProductById(int id) {
+    public Optional<Product> getProductById(int id) {
         for (Product product : products) {
             if (product.getId() == id) {
-                return product;
+                return Optional.of(product);
             }
         }
 
-        return null;
+        return Optional.empty();
     }
 
     public List<Product> getAllProducts() {
@@ -25,10 +26,7 @@ public class ProductRepo {
     }
 
     public void removeProduct(int id) {
-        Product product = getProductById(id);
-
-        if (product != null) {
-            products.remove(product);
-        }
+        getProductById(id)
+                .ifPresent(products::remove);
     }
 }

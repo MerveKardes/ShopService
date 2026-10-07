@@ -3,6 +3,7 @@ package de.mervekardes;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,10 +41,10 @@ class ProductRepoTest {
 
         productRepo.addProduct(product);
 
-        Product actual = productRepo.getProductById(1);
+        Optional<Product> actual = productRepo.getProductById(1);
 
         assertThat(actual)
-                .isEqualTo(product);
+                .contains(product);
     }
 
     @Test
@@ -67,13 +68,13 @@ class ProductRepoTest {
     }
 
     @Test
-    void getProductById_shouldReturnNull_whenProductDoesNotExist() {
+    void getProductById_shouldReturnEmptyOptional_whenProductDoesNotExist() {
 
         ProductRepo productRepo = new ProductRepo();
 
-        Product actual = productRepo.getProductById(99);
+        Optional<Product> actual = productRepo.getProductById(99);
 
         assertThat(actual)
-                .isNull();
+                .isEmpty();
     }
 }
